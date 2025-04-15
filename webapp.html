@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Joke Generator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    #joke {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>😂 Random Joke Generator</h1>
+    <div id="joke">Click the button to get a joke!</div>
+    <button onclick="getJoke()">Tell Me a Joke</button>
+  </div>
+
+  <script>
+    async function getJoke() {
+      const jokeDiv = document.getElementById('joke');
+      jokeDiv.textContent = 'Loading...';
+
+      try {
+        const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+        const data = await response.json();
+        jokeDiv.textContent = `${data.setup} 🤔\n\n${data.punchline}`;
+      } catch (error) {
+        jokeDiv.textContent = 'Oops! Could not fetch a joke. Try again!';
+      }
+    }
+  </script>
+</body>
+</html>
